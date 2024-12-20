@@ -228,5 +228,26 @@ def sepia_filter(frame: np.ndarray):
 
 # Apply the filter to our clip by calling image_transform, which will call our filter on every frame
 rambo_clip = rambo_clip.image_transform(sepia_filter)
-rambo_clip.preview(fps=10)
+# rambo_clip.preview(fps=10)
 
+# Save final clip to a file == rendering
+### CLIP RENDERING
+# render our clip into a file
+final_clip = CompositeVideoClip(
+    [
+        intro_clip,
+        intro_text,
+        logo_clip,
+        bird_clip,
+        bird_text,
+        bunny_clip,
+        bunny_text,
+        rodents_clip,
+        rodents_text,
+        rambo_clip,
+        revenge_text,
+        made_with_text,
+        moviepy_clip,
+    ]
+)
+final_clip.write_videofile("./result.mp4")
