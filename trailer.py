@@ -56,3 +56,24 @@ made_with_text = TextClip(font=font, text="Made with", font_size=50, color="#fff
 # Also need the big buck bunny logo, lets load it and resize it
 logo_clip = ImageClip("./resources/logo_bbb.png").resized(width=400)
 moviepy_clip = ImageClip("./resources/logo_moviepy.png").resized(width=300)
+
+
+### CLIPS TIMING
+# Intro for 6 seconds, start after 3 seconds
+intro_text = intro_text.with_duration(6).with_start(3)
+# Logo start 2 second after intro text and stop with it.
+logo_clip = logo_clip.with_start(intro_text.start + 2).with_end(intro_text.end)
+bird_clip = bird_clip.with_start(
+    intro_clip.end
+)  # Make bird clip start after intro, duration already known
+bird_text = bird_text.with_start(bird_clip.start).with_end(
+    bird_clip.end
+)  # Make text synchro with clip
+bunny_clip = bunny_clip.with_start(bird_clip.end)  # Make bunny clip follow bird clip
+bunny_text = bunny_text.with_start(bunny_clip.start + 2).with_duration(7)
+rodents_clip = rodents_clip.with_start(bunny_clip.end)
+rodents_text = rodents_text.with_start(rodents_clip.start).with_duration(4)
+rambo_clip = rambo_clip.with_start(rodents_clip.end - 1.5)
+revenge_text = revenge_text.with_start(rambo_clip.start + 1.5).with_duration(4)
+made_with_text = made_with_text.with_start(rambo_clip.end).with_duration(3)
+moviepy_clip = moviepy_clip.with_start(made_with_text.start).with_duration(3)
