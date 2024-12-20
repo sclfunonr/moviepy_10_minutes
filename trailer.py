@@ -133,4 +133,63 @@ quick_compo = CompositeVideoClip(
         moviepy_clip,
     ]
 )
-quick_compo.preview(fps=10)
+# quick_compo.preview(fps=10)
+
+# effects for smoother transitions
+### CLIPS TRANSITION AND EFFECTS
+intro_text = intro_text.with_effects([vfx.CrossFadeIn(1), vfx.CrossFadeOut(1)])
+logo_clip = logo_clip.with_effects([vfx.CrossFadeIn(1), vfx.CrossFadeOut(1)])
+bird_text = bird_text.with_effects([vfx.CrossFadeIn(0.5), vfx.CrossFadeOut(0.5)])
+bunny_text = bunny_text.with_effects([vfx.CrossFadeIn(0.5), vfx.CrossFadeOut(0.5)])
+rodents_text = rodents_text.with_effects([vfx.CrossFadeIn(0.5), vfx.CrossFadeOut(0.5)])
+
+# Also add cross fading on video clips and video clips audio
+# See how video effects are under vfx and audio ones under afx
+intro_clip = intro_clip.with_effects(
+    [vfx.FadeIn(1), vfx.FadeOut(1), afx.AudioFadeIn(1), afx.AudioFadeOut(1)]
+)
+bird_clip = bird_clip.with_effects(
+    [vfx.FadeIn(1), vfx.FadeOut(1), afx.AudioFadeIn(1), afx.AudioFadeOut(1)]
+)
+bunny_clip = bunny_clip.with_effects(
+    [vfx.FadeIn(1), vfx.FadeOut(1), afx.AudioFadeIn(1), afx.AudioFadeOut(1)]
+)
+rodents_clip = rodents_clip.with_effects(
+    [vfx.FadeIn(1), vfx.CrossFadeOut(1.5), afx.AudioFadeIn(1), afx.AudioFadeOut(1.5)]
+)  # Just fade in, rambo clip will do the cross fade
+rambo_clip = rambo_clip.with_effects(
+    [vfx.CrossFadeIn(1.5), vfx.FadeOut(1), afx.AudioFadeIn(1.5), afx.AudioFadeOut(1)]
+)
+rambo_clip = rambo_clip.with_effects(
+    [vfx.CrossFadeIn(1.5), vfx.FadeOut(1), afx.AudioFadeIn(1.5), afx.AudioFadeOut(1)]
+)
+
+# Effects are not only for transition, they can also change a clip timing or appearance
+# To show that, lets also modify the Rambo-like part of our clip to be in slow motion
+# PS: We do it for effect, but this is one of the few effects that have a direct shortcut, with_speed_scaled
+# the others are with_volume_scaled, resized, cropped and rotated
+rambo_clip = rambo_clip.with_effects([vfx.MultiplySpeed(0.5)])
+
+# Because we modified timing of rambo_clip with our MultiplySpeed effect, we must re-assign the following clips timing
+made_with_text = made_with_text.with_start(rambo_clip.end).with_duration(3)
+moviepy_clip = moviepy_clip.with_start(made_with_text.start).with_duration(3)
+
+# Let's have a last look at the result to make sure everything is working as expected
+quick_comp = CompositeVideoClip(
+    [
+        intro_clip,
+        intro_text,
+        logo_clip,
+        bird_clip,
+        bird_text,
+        bunny_clip,
+        bunny_text,
+        rodents_clip,
+        rodents_text,
+        rambo_clip,
+        revenge_text,
+        made_with_text,
+        moviepy_clip,
+    ]
+)
+quick_comp.preview(fps=10)
