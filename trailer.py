@@ -77,3 +77,25 @@ rambo_clip = rambo_clip.with_start(rodents_clip.end - 1.5)
 revenge_text = revenge_text.with_start(rambo_clip.start + 1.5).with_duration(4)
 made_with_text = made_with_text.with_start(rambo_clip.end).with_duration(3)
 moviepy_clip = moviepy_clip.with_start(made_with_text.start).with_duration(3)
+
+### CLIPS TIMING PREVIEW
+# Let's make a first compositing of the clips into one single clip and do a quick preview to see
+# if everything is synchro
+quick_compo = CompositeVideoClip(
+    [
+        intro_clip,
+        intro_text,
+        logo_clip,
+        bird_clip,
+        bird_text,
+        bunny_clip,
+        bunny_text,
+        rodents_clip,
+        rodents_text,
+        rambo_clip,
+        revenge_text,
+        made_with_text,
+        moviepy_clip,
+    ]
+)
+quick_compo.preview(fps=5)
