@@ -98,4 +98,39 @@ quick_compo = CompositeVideoClip(
         moviepy_clip,
     ]
 )
-quick_compo.preview(fps=5)
+# quick_compo.preview(fps=5)
+
+
+### CLIPS POSITIONNING
+# To keep it simple, set center for every texts
+bird_text = bird_text.with_position(("center", "center"))
+bunny_text = bunny_text.with_position(("center", "center"))
+rodents_text = rodents_text.with_position(("center", "center"))
+revenge_text = revenge_text.with_position(("center", "center"))
+
+#For the logos and intro/end, we will use pixel position instead of center
+top = intro_clip.h // 2
+intro_text = intro_text.with_position(("center", 200))
+logo_clip = logo_clip.with_position(("center", top))
+made_with_text = made_with_text.with_position(("center", 300))
+moviepy_clip = moviepy_clip.with_position(("center", 360))
+
+# Lets take another look to check positions
+quick_compo = CompositeVideoClip(
+    [
+        intro_clip,
+        intro_text,
+        logo_clip,
+        bird_clip,
+        bird_text,
+        bunny_clip,
+        bunny_text,
+        rodents_clip,
+        rodents_text,
+        rambo_clip,
+        revenge_text,
+        made_with_text,
+        moviepy_clip,
+    ]
+)
+quick_compo.preview(fps=10)
